@@ -1,0 +1,12 @@
+{
+  "name": "Intershop Gradle Plugin Build",
+  "description": "Action to build, test and release snapshots of a gradle plugin.",
+  "iconName": "intershop",
+  "categories": [
+      "Gradle", "Java", "Kotlin", "testing", "continuous-integration"
+  ],
+  "filePatterns": [
+      "build.gradle",
+      "build.gradle.kts"
+  ]
+}

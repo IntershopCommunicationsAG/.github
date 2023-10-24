@@ -1,0 +1,12 @@
+{
+  "name": "Intershop Gradle Plugin Release",
+  "description": "Action to release a gradle plugin.",
+  "iconName": "intershop",
+  "categories": [
+      "Gradle", "Java", "Kotlin", "deployment", "continuous-integration"
+  ],
+  "filePatterns": [
+      "build.gradle",
+      "build.gradle.kts"
+  ]
+}
