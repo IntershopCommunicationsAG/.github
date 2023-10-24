@@ -1,0 +1,76 @@
+name: Build and Test Plugin
+description: Build and test a gradle plugin
+inputs:
+  java-version:
+    required: true
+    default: "17"
+    description: The java version to use
+  signing-file:
+    required: true
+    description: GPG signing file
+  signing-key-id:
+    required: true
+    description: GPG signing key ID
+  signing-password:
+    required: true
+    description: GPG signing password
+  api-key:
+    required: true
+    description: Gradle publish api key
+  api-secret:
+    required: true
+    description: Gradle publish api secret
+
+# required permissions for junit results:
+#    checks: write
+#    pull-requests: write
+  
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Set up JDK ${{ inputs.java-version }}
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: ${{ inputs.java-version }}
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+    - name: Create .gradle dir
+      shell: bash
+      run: mkdir -p $HOME/.gradle
+    - name: Install gpg secret key
+      shell: bash
+      env:
+        SIGNINGFILE: ${{ inputs.signing-file }}
+      run: |
+        cat <(echo -e "$SIGNINGFILE") | gpg --batch --import
+        gpg --list-secret-keys --keyid-format LONG
+    - name: Export gpg file
+      shell: bash
+      env:
+        SIGNINGKEYID: ${{ inputs.signing-key-id }}
+        SIGNINGPASSWORD: ${{ inputs.signing-password }}
+      run: |
+        gpg --batch --passphrase="$SIGNINGPASSWORD" --pinentry-mode loopback --export-secret-keys $SIGNINGKEYID > $HOME/.gradle/secrets.gpg
+    - name: Create gradle properties
+      shell: bash
+      env:
+        APIKEY: ${{ inputs.api-key }}
+        APISECRET: ${{ inputs.api-secret }}
+        SIGNINGKEYID: ${{ inputs.signing-key-id }}
+        SIGNINGPASSWORD: ${{ inputs.signing-password }}
+      run: echo -e "gradle.publish.key=$APIKEY\ngradle.publish.secret=$APISECRET\nsigning.keyId=$SIGNINGKEYID\nsigning.password=$SIGNINGPASSWORD\nsigning.secretKeyRingFile=$HOME/.gradle/secrets.gpg" > $HOME/.gradle/gradle.properties
+    - name: Build and test with Gradle
+      shell: bash
+      run: ./gradlew test build publishIntershopMvnPublicationToMavenRepository -s --scan
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action/composite@v2
+      if: always()
+      with:
+        files: test-results/**/*.xml
+    - name: Post Build
+      shell: bash
+      run: rm -f $HOME/.gradle/gradle.properties
