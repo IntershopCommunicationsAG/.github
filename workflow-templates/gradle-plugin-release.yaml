@@ -12,7 +12,9 @@ jobs:
 
     steps:
     - name: Setup
-      uses: IntershopCommunicationsAG/.github/actions/gradle-plugin-setup@v0.3
+      uses: IntershopCommunicationsAG/.github/actions/gradle-plugin-setup@v0.4
+    - name: Release
+      uses: IntershopCommunicationsAG/.github/actions/gradle-plugin-release@v0.4
       with:
         signing-file: ${{ secrets.SIGNINGFILE }}
         signing-key-id: ${{ secrets.SIGNINGKEYID }}
@@ -21,5 +23,3 @@ jobs:
         api-secret: ${{ secrets.APISECRET }}
         sonatype-user: ${{ secrets.SONATYPEUSER }}
         sonatype-password: ${{ secrets.SONATYPEPASSWORD }}
-    - name: Release
-      uses: IntershopCommunicationsAG/.github/actions/gradle-plugin-release@v0.3
