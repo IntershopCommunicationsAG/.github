@@ -10,7 +10,7 @@ runs:
   steps:
     - name: Build and test with Gradle
       shell: bash
-      run: ./gradlew test build publishIntershopMvnPublicationToMavenRepository -s --scan
+      run: ./gradlew build -s --scan
     - name: Publish Unit Test Results
       uses: EnricoMi/publish-unit-test-result-action/composite@v2
       if: always()

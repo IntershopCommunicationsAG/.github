@@ -1,12 +1,59 @@
 name: Release Plugin
 description: Build and test a gradle plugin
-  
+
+inputs:
+  signing-file:
+    required: true
+    description: GPG signing file
+  signing-key-id:
+    required: true
+    description: GPG signing key ID
+  signing-password:
+    required: true
+    description: GPG signing password
+  api-key:
+    required: true
+    description: Gradle publish api key
+  api-secret:
+    required: true
+    description: Gradle publish api secret
+  sonatype-user:
+    required: true
+    description: The user for the Sonatype repo
+  sonatype-password:
+    required: true
+    description: The password for the Sonatype repo
+
 runs:
   using: composite
   steps:
+    - name: Install gpg secret key
+      shell: bash
+      env:
+        SIGNINGFILE: ${{ inputs.signing-file }}
+      run: |
+        cat <(echo -e "$SIGNINGFILE") | gpg --batch --import
+        gpg --list-secret-keys --keyid-format LONG
+    - name: Export gpg file
+      shell: bash
+      env:
+        SIGNINGKEYID: ${{ inputs.signing-key-id }}
+        SIGNINGPASSWORD: ${{ inputs.signing-password }}
+      run: |
+        gpg --batch --passphrase="$SIGNINGPASSWORD" --pinentry-mode loopback --export-secret-keys $SIGNINGKEYID > $HOME/.gradle/secrets.gpg
+    - name: Create gradle properties
+      shell: bash
+      env:
+        APIKEY: ${{ inputs.api-key }}
+        APISECRET: ${{ inputs.api-secret }}
+        SIGNINGKEYID: ${{ inputs.signing-key-id }}
+        SIGNINGPASSWORD: ${{ inputs.signing-password }}
+        SONATYPEUSER: ${{ inputs.sonatype-user }}
+        SONATYPEPASSWORD: ${{ inputs.sonatype-password }}
+      run: echo -e "gradle.publish.key=$APIKEY\ngradle.publish.secret=$APISECRET\nsigning.keyId=$SIGNINGKEYID\nsigning.password=$SIGNINGPASSWORD\nsigning.secretKeyRingFile=$HOME/.gradle/secrets.gpg\nsonatypeUsername=$SONATYPEUSER\nsonatypePassword=$SONATYPEPASSWORD" > $HOME/.gradle/gradle.properties
     - name: Run gradle release
       shell: bash
-      run: ./gradlew -PrunOnCI=true publishIntershopMvnPublicationToMavenRepository publishPlugins -s
+      run: ./gradlew publishIntershopMvnPublicationToMavenRepository publishPlugins -s --scan
     - name: Post Build
       shell: bash
       run: rm -f $HOME/.gradle/gradle.properties
