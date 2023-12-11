@@ -23,6 +23,10 @@ inputs:
   sonatype-password:
     required: true
     description: The password for the Sonatype repo
+  publish-tasks:
+    required: true
+    description: The task which publishes the artifacts
+    default: publishIntershopMvnPublicationToMavenRepository publishPlugins
 
 runs:
   using: composite
@@ -53,7 +57,7 @@ runs:
       run: echo -e "gradle.publish.key=$APIKEY\ngradle.publish.secret=$APISECRET\nsigning.keyId=$SIGNINGKEYID\nsigning.password=$SIGNINGPASSWORD\nsigning.secretKeyRingFile=$HOME/.gradle/secrets.gpg\nsonatypeUsername=$SONATYPEUSER\nsonatypePassword=$SONATYPEPASSWORD" > $HOME/.gradle/gradle.properties
     - name: Run gradle release
       shell: bash
-      run: ./gradlew -PprojectVersion=${{ github.ref_name }} publishIntershopMvnPublicationToMavenRepository publishPlugins -s --scan
+      run: ./gradlew -PprojectVersion=${{ github.ref_name }} ${{ inputs.publish-tasks }} -s --scan
     - name: Post Build
       shell: bash
       run: rm -f $HOME/.gradle/gradle.properties
