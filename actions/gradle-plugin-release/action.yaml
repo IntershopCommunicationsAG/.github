@@ -53,7 +53,7 @@ runs:
       run: echo -e "gradle.publish.key=$APIKEY\ngradle.publish.secret=$APISECRET\nsigning.keyId=$SIGNINGKEYID\nsigning.password=$SIGNINGPASSWORD\nsigning.secretKeyRingFile=$HOME/.gradle/secrets.gpg\nsonatypeUsername=$SONATYPEUSER\nsonatypePassword=$SONATYPEPASSWORD" > $HOME/.gradle/gradle.properties
     - name: Run gradle release
       shell: bash
-      run: ./gradlew publishIntershopMvnPublicationToMavenRepository publishPlugins -s --scan
+      run: ./gradlew -PprojectVersion=${{ github.ref_name }} publishIntershopMvnPublicationToMavenRepository publishPlugins -s --scan
     - name: Post Build
       shell: bash
       run: rm -f $HOME/.gradle/gradle.properties
