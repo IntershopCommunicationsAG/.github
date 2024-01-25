@@ -12,6 +12,7 @@ The development process follows the very simplified GitFlow process:
 . apply all your changes to that branch
 . use link:https://www.conventionalcommits.org/[conventional commits] referencing your ticket id if there's such a ticket
 . create a PR into the `master`-branch
+. finish the PR using a squash merge providing a link:https://www.conventionalcommits.org/[conventional-commit] comment
 
 [#HotfixDev]
 === Develop a hotfix
