@@ -1,0 +1,28 @@
+= Contribute
+:toc:
+:icons: font
+
+== Development process
+The development process follows the very simplified GitFlow process:
+
+[#FeatureDev]
+=== Develop a feature
+
+. create a new branch on `master`-branch named like your feature
+. apply all your changes to that branch
+. use link:https://www.conventionalcommits.org/[conventional commits] referencing your ticket id if there's such a ticket
+. create a PR into the `master`-branch
+
+[#HotfixDev]
+=== Develop a hotfix
+Follow the same process as xref:FeatureDev[developing a feature].
+
+[#ReleaseCreation]
+=== Create a release
+. create a Git tag inside the `master`-branch pointing to the commit to be released
+. the name of the tag has to follow the link:https://semver.org/[semantic versioning] pattern `<major>.<minor>.<patch>` (the tag's name is directly used as the release version).
+
+[NOTE]
+====
+The `master`-branch may also be named `main`.
+====

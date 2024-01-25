@@ -1,5 +1,5 @@
 name: Release Plugin
-description: Build and test a gradle plugin
+description: Release a gradle plugin
 
 inputs:
   signing-file:

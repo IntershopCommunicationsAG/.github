@@ -1,0 +1,105 @@
+= Intershop Central GitHub actions
+:latestRevision: 1.0
+:toc:
+:icons: font
+
+== Summary
+This project contains GitHub action definitions to be used by (most) Intershop GitHub projects that typically
+using a build based on Gradle.
+
+== Actions
+
+=== Setup
+Prepares the environment for gradle tasks.
+
+.Inputs
+[%autowidth]
+|===
+|Input |Description |Type |Mand/Opt |Default value
+
+|`java-version` |Java version to be used |int |opt |`17`
+
+|===
+
+.Location
+[%collapsible]
+====
+[source,bash]
+actions/gradle-plugin-setup/action.yaml
+====
+
+.Source
+[%collapsible]
+====
+[source,yaml]
+include::actions/gradle-plugin-setup/action.yaml[]
+====
+
+=== Build
+Build and test a gradle plugin.
+.Action inputs
+[%autowidth]
+|===
+|Input |Description |Type |Mand/Opt |Default value
+
+5+|&lt;none&gt;
+
+|===
+
+.Location
+[%collapsible]
+====
+[source,bash]
+actions/gradle-plugin-build/action.yaml
+====
+
+.Source
+[%collapsible]
+====
+[source,yaml]
+include::actions/gradle-plugin-build/action.yaml[]
+====
+
+=== Release
+Release a gradle plugin
+.Action inputs
+[%autowidth]
+|===
+|Input |Description |Type |Mand/Opt |Default value
+
+|`signing-file` |GPG signing file |GPG signing file |mand |
+|`signing-id` |GPG signing key ID |GPG signing key id |mand |
+|`signing-password` |GPG signing password |GPG signing password |mand |
+|`api-key` |Key to access the GitHub API |GitHub key |mand |
+|`api-secret` |Secret matching the `api-key` |GitHub key secret |mand |
+|`sonatype-user` |User name for the access to Sonatype |Sonatype user name |mand |
+|`sonatype-password` |Password belonging to the `sonatype-user` |Sonatype user password |mand |
+|`publish-tasks` |Names of the tasks to use for publishing |task names space separated |opt |`publishIntershopMvnPublicationToMavenRepository publishPlugins`
+|===
+
+.Location
+[%collapsible]
+====
+[source,bash]
+actions/gradle-plugin-release/action.yaml
+====
+
+.Source
+[%collapsible]
+====
+[source,yaml]
+include::actions/gradle-plugin-release/action.yaml[]
+====
+
+== Contribute
+See xref:CONTRIBUTE.asciidoc[here] for more information.
+
+== License
+
+Copyright 2014-2020 Intershop Communications.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
