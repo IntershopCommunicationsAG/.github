@@ -8,6 +8,11 @@ The development process follows the very simplified GitFlow process:
 [#FeatureDev]
 === Develop a feature
 
+[NOTE]
+====
+The `master`-branch may also be named `main`.
+====
+
 . create a new branch on `master`-branch named like your feature
 . apply all your changes to that branch
 . use link:https://www.conventionalcommits.org/[conventional commits] referencing your ticket id if there's such a ticket
@@ -23,7 +28,16 @@ Follow the same process as xref:FeatureDev[developing a feature].
 . create a Git tag inside the `master`-branch pointing to the commit to be released
 . the name of the tag has to follow the link:https://semver.org/[semantic versioning] pattern `<major>.<minor>.<patch>` (the tag's name is directly used as the release version).
 
+[#PublishingRelease]
+=== Publishing of a release
 [NOTE]
 ====
-The `master`-branch may also be named `main`.
+To publish a release on behalf of Intershop Communications AG, your Sonatype profile must be enabled and approved by an Intershop Communications AG employee for the `com.intershop` and `com.intershop.gradle` namespaces.
 ====
+. After creating the release, navigate to link:https://oss.sonatype.org/[Sonatype] and log in with your credentials.
+. In the sidebar, locate the `Build Promotion` section and click on the `Staging Repository` link. You should see the proposed release in the staging repository.
+. Review the staged release for correctness and completeness.
+.. If the release passes verification, select the release entry and click the `Close` button.
+.. If there are issues with the release, click the `Drop` button to discard the release entry. Make the necessary corrections and start over with the process.
+. Once the release is successfully closed, select the release entry again and click the `Release` button.
+. The release process is now complete. Please note, it may take several minutes to a few hours for the release to be publicly available on link:https://central.sonatype.com/[Maven Central Repository].

@@ -1,5 +1,5 @@
 name: Release Plugin
-description: Release a gradle plugin
+description: Release a Gradle plugin. Please check https://github.com/IntershopCommunicationsAG/.github/blob/main/CONTRIBUTE.asciidoc#PublishingRelease for the post-release tagging process on how to publish the Gradle plugin.
 
 inputs:
   signing-file:
