@@ -5,6 +5,10 @@ inputs:
     required: true
     default: "17"
     description: The java version to use
+  checkout-submodules:
+    required: false
+    default: "false"
+    description: Whether to checkout Git submodules
 # required permissions for junit results:
 #    checks: write
 #    pull-requests: write
@@ -15,6 +19,7 @@ runs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
+        submodules: ${{ inputs.checkout-submodules }}
     - name: Set up JDK ${{ inputs.java-version }}
       uses: actions/setup-java@v3
       with:
