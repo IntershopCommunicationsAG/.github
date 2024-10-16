@@ -11,7 +11,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
+      contents: read
+    environment: CIRelease
     steps:
+    
       - uses: actions/checkout@v4
 
       - name: Test 'gradle-plugin-setup'
