@@ -14,5 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Integration test 1
-        uses: ./actions/
+      - name: Test 'gradle-plugin-setup'
+        uses: ./actions/gradle-plugin-setup/
+
+      - name: Test 'gradle-plugin-build'
+        uses: ./actions/gradle-plugin-build/
