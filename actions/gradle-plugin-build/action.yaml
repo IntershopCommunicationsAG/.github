@@ -7,7 +7,6 @@ description: Build and test a gradle plugin
   
 runs:
   using: composite
-  if: always()
   steps:
     - name: Build and test with Gradle
       shell: bash
@@ -15,19 +14,19 @@ runs:
 
     - name: Publish Unit Test Results (Linux)
       uses: EnricoMi/publish-unit-test-result-action/linux@v2
-      if: runner.os == 'Linux'
+      if: always() && runner.os == 'Linux'
       with:
         files: build/test-results/test/*.xml
 
     - name: Publish Unit Test Results (Windows)
       uses: EnricoMi/publish-unit-test-result-action/windows/bash@v2
-      if: runner.os == 'Windows'
+      if: always() && runner.os == 'Windows'
       with:
         files: build/test-results/test/*.xml
 
     - name: Publish Unit Test Results (macOS)
       uses: EnricoMi/publish-unit-test-result-action/macos@v2
-      if: runner.os == 'macOS'
+      if: always() && runner.os == 'macOS'
       with:
         files: build/test-results/test/*.xml  
 
