@@ -34,6 +34,7 @@ jobs:
       - name: (Setup) Create minimal Gradle build
         run: |
           echo "rootProject.name = 'test-gradle-project'" > settings.gradle
+          echo "task build { doLast { println 'Hello, Gradle!' } }" > build.gradle
           gradle wrapper --gradle-version 8.10.2
           chmod +x ./gradlew      
 
