@@ -19,7 +19,7 @@ jobs:
       - name: Create empty gradlew
         run: |
           touch gradlew
-          chmod +x ./gradlew
+          chmod +x gradlew
 
       - name: Create positive JUnit example test result
         run: |
@@ -31,6 +31,9 @@ jobs:
           echo '</testsuites>' >> test-results.xml
           mkdir -p build/test-results/test
           mv test-results.xml build/test-results/test/test-results.xml
+
+      - name: debug
+        run: ls -la
 
       # TEST
       - name: Test 'gradle-plugin-setup'
