@@ -19,7 +19,7 @@ jobs:
       - name: Create empty gradlew
         run: |
           touch gradlew
-          chmod +x gradlew
+          chmod +x ./gradlew
 
       - name: Create positive JUnit example test result
         run: |
