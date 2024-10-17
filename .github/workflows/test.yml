@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  gradle-plugin-setup-and-build-test:
     runs-on: ubuntu-latest
     steps:
     
@@ -17,6 +17,19 @@ jobs:
 
       - name: Test 'gradle-plugin-setup'
         uses: ./actions/gradle-plugin-setup/
+
+      - name: Call gradle wrapper
+        run : gradle wrapper --gradle-version 8.10.2
+
+      - name: Create positive JUnit example test result
+        run: |
+          echo '<?xml version="1.0" encoding="UTF-8"?>' > test-results.xml
+          echo '<testsuites>' >> test-results.xml
+          echo '  <testsuite name="ExampleTestSuite" tests="1" failures="0" errors="0" skipped="0" time="1.000">' >> test-results.xml
+          echo '    <testcase classname="ExampleClass" name="testMethod" time="1.000"/>' >> test-results.xml
+          echo '  </testsuite>' >> test-results.xml
+          echo '</testsuites>' >> test-results.xml
+          mv test-results.xml build/test-results/test/test-results.xml
 
       - name: Test 'gradle-plugin-build'
         uses: ./actions/gradle-plugin-build/
