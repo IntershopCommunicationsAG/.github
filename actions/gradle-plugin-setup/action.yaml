@@ -21,12 +21,12 @@ runs:
         fetch-depth: 0
         submodules: ${{ inputs.checkout-submodules }}
     - name: Set up JDK ${{ inputs.java-version }}
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         distribution: temurin
         java-version: ${{ inputs.java-version }}
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/actions/setup-gradle@v4
     - name: Create .gradle dir
       shell: bash
       run: mkdir -p $HOME/.gradle

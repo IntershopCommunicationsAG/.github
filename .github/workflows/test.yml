@@ -1,0 +1,43 @@
+name: Test actions
+
+on:
+  push:
+    branches: [ '**' ]
+  pull_request:
+    branches: [ 'main' ]
+
+  workflow_dispatch:
+
+jobs:
+  gradle-plugin-setup-and-build-test:
+    runs-on: ubuntu-latest
+    name: Test gradle-plugin-setup and gradle-plugin-build
+    steps:
+      - uses: actions/checkout@v4
+
+      # note: this sets up java but also cleans the repo!
+      - name: Test 'gradle-plugin-setup'
+        uses: ./actions/gradle-plugin-setup/
+
+      # START SETUP
+      - name: Create positive JUnit example test result
+        run: |
+          echo '<?xml version="1.0" encoding="UTF-8"?>' > test-results.xml
+          echo '<testsuites>' >> test-results.xml
+          echo '  <testsuite name="ExampleTestSuite" tests="1" failures="0" errors="0" skipped="0" time="1.000">' >> test-results.xml
+          echo '    <testcase classname="ExampleClass" name="testMethod" time="1.000"/>' >> test-results.xml
+          echo '  </testsuite>' >> test-results.xml
+          echo '</testsuites>' >> test-results.xml
+          mkdir -p build/test-results/test
+          mv test-results.xml build/test-results/test/test-results.xml
+
+      - name: (Setup) Create minimal Gradle build
+        run: |
+          echo "rootProject.name = 'test-gradle-project'" > settings.gradle
+          echo "task build { doLast { println 'Hello, Gradle!' } }" > build.gradle
+          gradle wrapper --gradle-version 8.10.2
+          chmod +x ./gradlew
+      # END SETUP
+
+      - name: Test 'gradle-plugin-build'
+        uses: ./actions/gradle-plugin-build/
