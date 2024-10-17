@@ -18,10 +18,10 @@ jobs:
       - name: Test 'gradle-plugin-setup'
         uses: ./actions/gradle-plugin-setup/
 
-      - name: Init gradle
+      - name: Create empty gradlew
         run : |
-          gradle init
-          gradle wrapper --gradle-version 8.10.2
+          touch gradlew
+          chmod +x gradlew
 
       - name: Create positive JUnit example test result
         run: |
