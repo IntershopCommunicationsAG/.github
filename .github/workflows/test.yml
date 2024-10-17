@@ -31,8 +31,11 @@ jobs:
       - name: Test 'gradle-plugin-setup'
         uses: ./actions/gradle-plugin-setup/
 
-      - name: Setup gradle wrapper
-        run: gradle wrapper --gradle-version 8.10.2
+      - name: (Setup) Create minimal Gradle build
+        run: |
+          echo "rootProject.name = 'test-gradle-project'" > settings.gradle
+          gradle wrapper --gradle-version 8.10.2
+          chmod +x ./gradlew      
 
       - name: Test 'gradle-plugin-build'
         uses: ./actions/gradle-plugin-build/
