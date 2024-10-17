@@ -9,9 +9,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  setup:
+  gradle-plugin-setup-and-build-test:
     runs-on: ubuntu-latest
+    name: Test gradle-plugin-setup and gradle-plugin-build
     steps:
+      # SETUP
       - uses: actions/checkout@v4
 
       - name: Create empty gradlew
@@ -30,12 +32,7 @@ jobs:
           mkdir -p build/test-results/test
           mv test-results.xml build/test-results/test/test-results.xml
 
-  gradle-plugin-setup-and-build-test:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - uses: actions/checkout@v4
-
+      # TEST
       - name: Test 'gradle-plugin-setup'
         uses: ./actions/gradle-plugin-setup/
 
