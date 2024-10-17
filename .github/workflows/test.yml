@@ -26,6 +26,7 @@ jobs:
           echo '</testsuites>' >> test-results.xml
           mkdir -p build/test-results/test
           mv test-results.xml build/test-results/test/test-results.xml
+          ls -R
 
       # TEST
       - name: Test 'gradle-plugin-setup'
@@ -36,7 +37,8 @@ jobs:
           echo "rootProject.name = 'test-gradle-project'" > settings.gradle
           echo "task build { doLast { println 'Hello, Gradle!' } }" > build.gradle
           gradle wrapper --gradle-version 8.10.2
-          chmod +x ./gradlew      
+          chmod +x ./gradlew
+          ls -R
 
       - name: Test 'gradle-plugin-build'
         uses: ./actions/gradle-plugin-build/
