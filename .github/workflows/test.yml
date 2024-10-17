@@ -16,11 +16,6 @@ jobs:
       # SETUP
       - uses: actions/checkout@v4
 
-      - name: Create empty gradlew
-        run: |
-          touch gradlew
-          chmod +x gradlew
-
       - name: Create positive JUnit example test result
         run: |
           echo '<?xml version="1.0" encoding="UTF-8"?>' > test-results.xml
@@ -32,12 +27,12 @@ jobs:
           mkdir -p build/test-results/test
           mv test-results.xml build/test-results/test/test-results.xml
 
-      - name: debug
-        run: ls -la
-
       # TEST
       - name: Test 'gradle-plugin-setup'
         uses: ./actions/gradle-plugin-setup/
+
+      - name: Setup gradle wrapper
+        run: gradle wrapper --gradle-version 8.10.2
 
       - name: Test 'gradle-plugin-build'
         uses: ./actions/gradle-plugin-build/
