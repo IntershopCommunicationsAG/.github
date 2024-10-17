@@ -18,8 +18,10 @@ jobs:
       - name: Test 'gradle-plugin-setup'
         uses: ./actions/gradle-plugin-setup/
 
-      - name: Call gradle wrapper
-        run : gradle wrapper --gradle-version 8.10.2
+      - name: Init gradle
+        run : |
+          gradle init
+          gradle wrapper --gradle-version 8.10.2
 
       - name: Create positive JUnit example test result
         run: |
