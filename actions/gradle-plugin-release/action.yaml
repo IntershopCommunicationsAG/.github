@@ -26,7 +26,7 @@ inputs:
   publish-tasks:
     required: true
     description: The task which publishes the artifacts
-    default: publishIntershopMvnPublicationToMavenRepository publishPlugins
+    default: publishToMavenCentralPortal publishPlugins
 
 runs:
   using: composite
