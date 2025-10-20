@@ -1,0 +1,52 @@
+= Plugin dependencies
+:toc:
+:icons: font
+
+== Summary
+This document gives an overview over the gradle plugins + consumed libraries that are required to build an icm-as (and customizations).
+Legacy plugins and libraries are not part of this document.
+
+== Dependency diagram
+
+image::icm gradle plugins.webp[]
+
+[IMPORTANT]
+The dependencies that are marked [.red]#red# are implementation dependencies onto plugins: code of a plugin is referenced instead or additionally to using it as a plugin. This often leads to version conflicts when using the dependent plugin.
+
+== Resulting release order
+
+When releasing all or some of these plugins / libraries the dependencies enforce a certain order:
+
+1.
+----
+rest-test-client
+test-gradle-plugin
+semantic-version
+icmjobrunner
+extended-version
+----
+
+2.
+----
+javacc-gradle-plugin
+escrow-gradle-plugin
+gitflow-version-gradle-plugin
+resourcelist-gradle-plugin
+jaxb-gradle-plugin
+----
+
+3.
+----
+icm-gradle-plugin
+isml-parser
+----
+
+4.
+----
+architectural-report-gradle-plugin
+icm-docker-plugin
+isml-gradle-plugin
+----
+
+[NOTE]
+The order inside of each of these blocks does not matter.
