@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Test gradle-plugin-setup and gradle-plugin-build
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       # note: this sets up java but also cleans the repo!
       - name: Test 'gradle-plugin-setup'
@@ -35,7 +35,7 @@ jobs:
         run: |
           echo "rootProject.name = 'test-gradle-project'" > settings.gradle
           echo "task build { doLast { println 'Hello, Gradle!' } }" > build.gradle
-          gradle wrapper --gradle-version 8.10.2
+          gradle wrapper --gradle-version 9.4.0
           chmod +x ./gradlew
       # END SETUP
 
