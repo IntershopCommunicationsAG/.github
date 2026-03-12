@@ -35,7 +35,7 @@ jobs:
         run: |
           echo "rootProject.name = 'test-gradle-project'" > settings.gradle
           echo "task build { doLast { println 'Hello, Gradle!' } }" > build.gradle
-          gradle wrapper --gradle-version 8.10.2
+          gradle wrapper --gradle-version 9.4.0
           chmod +x ./gradlew
       # END SETUP
 
