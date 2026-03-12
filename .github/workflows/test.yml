@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Test gradle-plugin-setup and gradle-plugin-build
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       # note: this sets up java but also cleans the repo!
       - name: Test 'gradle-plugin-setup'
