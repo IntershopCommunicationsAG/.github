@@ -17,7 +17,9 @@ Prepares the environment for gradle tasks.
 |===
 |Input |Description |Type |Mand/Opt |Default value
 
-|`java-version` |Java version to be used |int |opt |`17`
+|`java-version` |Java version to be used |int |opt |`25`
+
+|`checkout-submodules` |Whether to checkout Git submodules |boolean |opt |`false`
 
 |===
 
@@ -74,7 +76,7 @@ Release a gradle plugin
 |`api-secret` |Secret matching the `api-key` |GitHub key secret |mand |
 |`sonatype-user` |User name for the access to Sonatype |Sonatype user name |mand |
 |`sonatype-password` |Password belonging to the `sonatype-user` |Sonatype user password |mand |
-|`publish-tasks` |Names of the tasks to use for publishing |task names space separated |opt |`publishIntershopMvnPublicationToMavenRepository publishPlugins`
+|`publish-tasks` |Names of the tasks to use for publishing |task names space separated |opt |`publishToMavenCentralPortal publishPlugins`
 |===
 
 .Location

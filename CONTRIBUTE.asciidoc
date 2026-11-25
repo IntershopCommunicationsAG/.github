@@ -34,10 +34,8 @@ Follow the same process as xref:FeatureDev[developing a feature].
 ====
 To publish a release on behalf of Intershop Communications AG, your Sonatype profile must be enabled and approved by an Intershop Communications AG employee for the `com.intershop` and `com.intershop.gradle` namespaces.
 ====
-. After creating the release, navigate to link:https://oss.sonatype.org/[Sonatype] and log in with your credentials.
-. In the sidebar, locate the `Build Promotion` section and click on the `Staging Repository` link. You should see the proposed release in the staging repository.
-. Review the staged release for correctness and completeness.
-.. If the release passes verification, select the release entry and click the `Close` button.
-.. If there are issues with the release, click the `Drop` button to discard the release entry. Make the necessary corrections and start over with the process.
-. Once the release is successfully closed, select the release entry again and click the `Release` button.
+. After creating the release, navigate to the link:https://central.sonatype.com/publishing/deployments[Deployments page of the Central Portal] and log in with your credentials. You should see the deployment of the release.
+. Wait until the validation of the deployment is finished (click `Refresh` to update its state) and review the deployment for correctness and completeness.
+.. If the validation passed and the deployment is correct, click the `Publish` button.
+.. If the validation failed (see `Validation Results`) or there are issues with the release, click the `Drop` button to discard the deployment. Make the necessary corrections and start over with the process.
 . The release process is now complete. Please note, it may take several minutes to a few hours for the release to be publicly available on link:https://central.sonatype.com/[Maven Central Repository].
